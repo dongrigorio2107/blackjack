@@ -2,39 +2,43 @@ import random
 
 CARDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 random_hand = random.sample(CARDS, 2)
-random_card = random.sample(CARDS, 1)
 hand = []
-
-def start(answer):
-    if answer == '1':
-        deal_cards()
-    elif answer == '2':
-        print('Goodbye! ')
 
 def deal_cards():
     hand.extend(random_hand)
     print(hand)
 
-#TODO: УБРАТЬ sum(hand) И СОЗДАТЬ hand_value() (итерация через руку и суммирование значений)
+def hand_value(hand):
+    sum = 0
+    for card in hand:
+        if isinstance(card, str) and card != 'A':
+            sum += 10
+        elif card != 'A': 
+            sum += card
+        if card == 'A':
+            if sum + 11 <= 21:
+                sum += 11
+            else:
+                sum += 1
+    return sum
 
 def hit_or_stand(answer):
+    value = hand_value(hand)
+    random_card = random.sample(CARDS, 1)
     if answer == '1':
-        global hand
         hand.extend(random_card)
-        if sum(hand) < 21:    
-            print(hand)
-            hit_or_stand(answer)
-        elif sum(hand) > 21:
+        print(hand)
+        if value > 21:
             print('You lost! ')
-        else:
-            print('Blackjack! ')
-    elif answer == '1':
-        print('... ')
+            return
+            new_answer = hit_answer = input('Hit or Stand? (1/2): ')
+            hit_or_stand(new_answer)
+        elif answer == '2':
+            print('Over! ')
+    elif value == 21:
+        print('Blackjack! ')
 
-start_answer = input('Start game? (1/2): ')
-start(start_answer)
+deal_cards()
 
 hit_answer = input('Hit or Stand? (1/2): ')
 hit_or_stand(hit_answer)
-
-
