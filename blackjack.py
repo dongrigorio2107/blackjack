@@ -1,7 +1,7 @@
 import random
 
-CARDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
-random_hand = random.sample(CARDS, 2)
+cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'] * 4
+random_hand = random.sample(cards, 2)
 hand = []
 
 def deal_cards():
@@ -23,9 +23,11 @@ def hand_value(hand):
     return sum
 
 def hit_or_stand(answer):
-    random_card = random.sample(CARDS, 1)
+    random_card = random.choice(cards)
     if answer == '1':
         hand.extend(random_card)
+        cards.remove(random_card)
+        print(len(cards))
         print(hand)
         value = hand_value(hand)
         if value > 21:
