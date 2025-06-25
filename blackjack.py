@@ -23,20 +23,21 @@ def hand_value(hand):
     return sum
 
 def hit_or_stand(answer):
-    value = hand_value(hand)
     random_card = random.sample(CARDS, 1)
     if answer == '1':
         hand.extend(random_card)
         print(hand)
+        value = hand_value(hand)
         if value > 21:
             print('You lost! ')
             return
+        elif value == 21:
+            print('Blackjack! ')
+        else:
             new_answer = hit_answer = input('Hit or Stand? (1/2): ')
             hit_or_stand(new_answer)
-        elif answer == '2':
+    elif answer == '2':
             print('Over! ')
-    elif value == 21:
-        print('Blackjack! ')
 
 deal_cards()
 
