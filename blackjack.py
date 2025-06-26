@@ -30,23 +30,24 @@ def dealer_deal():
     print(f'Dealer: [{dealer_hand[0]},|*|] ')
 
 def dealer_take():
-    random_dealer_card = random.choice(cards)
-    dealer_hand.append(random_dealer_card)
-    remove_cards(random_dealer_card)   
+    random_card = random.choice(cards)
+    dealer_hand.append(random_card)
+    cards.remove(random_card)   
 
-def dealer_play():
+def dealer_play(depth=0):
     value = hand_value(dealer_hand)
+    if depth == 0:
+        print("Dealer's turn ")
     if value < 17:
-        random_card = random.choice(cards)
-        dealer_hand.append(random_card)
-        cards.remove(random_card)
-        sleep(2)
+        dealer_take()
+        sleep(1)
         print(f'Dealer: {dealer_hand}')
         sleep(1)
-        dealer_play()
+        dealer_play(depth + 1)
         return
     elif 16 < value < 21:
-        print(f'Dealer: {dealer_hand}')
+        if depth == 0:
+            print(f'Dealer: {dealer_hand} ')
         sleep(1)
         print('Dealer stands ')
         if hand_value(hand) > hand_value(dealer_hand):
@@ -65,7 +66,7 @@ def dealer_play():
         print('You lost!')
     else:
         sleep(1)
-        dealer_play()
+        dealer_play(depth + 1)
         return
     try_again()
     return
@@ -132,7 +133,6 @@ def hit_or_stand(answer, first_turn=True):
             hit_or_stand(new_answer)
     elif answer == '2':
             sleep(1)
-            print("Dealer's turn")
             dealer_play()
             return
     
