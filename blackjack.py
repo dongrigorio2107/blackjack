@@ -27,7 +27,7 @@ def dealer_deal():
     random_dealer_hand = random.sample(cards, 2)
     dealer_hand.extend(random_dealer_hand)
     remove_cards(random_dealer_hand)
-    print(f'Dealer: {dealer_hand}')
+    print(f'Dealer: [{dealer_hand[0]},|*|] ')
 
 def dealer_take():
     random_dealer_card = random.choice(cards)
@@ -46,17 +46,22 @@ def dealer_play():
         dealer_play()
         return
     elif value < 21 and value > 16:
+        sleep(1)
         print('Dealer stands ')
         if hand_value(hand) > hand_value(dealer_hand):
+            sleep(1.5)
             print('You win! ')
         elif hand_value(hand) < hand_value(dealer_hand):
+            sleep(1.5)
             print('You lost! ')
     elif value > 21:
-        print('Dealer busted ')
-        sleep(1)
+        print('Bust ')
+        sleep(1.5)
         print('You win! ')
     elif value == 21:
-        print('Dealer has a blackjack! You lost!')
+        print('Dealer has a blackjack! ')
+        sleep(1.5)
+        print('You lost!')
     else:
         sleep(1)
         dealer_play()
@@ -102,21 +107,25 @@ def hit_or_stand(answer, first_turn=True):
         hand.append(random_card)
         cards.remove(random_card)
         sleep(1)
-        print(f'You: {hand}')
+        print(f'You: {hand} ')
         sleep(1)
-        print(f'Dealer: {dealer_hand}')
         value = hand_value(hand)
         if value > 21:
+            print(f'Dealer: {dealer_hand} ')
+            print('Bust ')
             sleep(1)
             print('You lost! ')
             sleep(1.5)
             try_again()
             return
         elif value == 21:
+            print(f'Dealer: {dealer_hand} ')
             print('Blackjack! ')
+            sleep(1.5)
             try_again()
             return
         else:
+            print(f'Dealer: [{dealer_hand[0]},|*|]')
             new_answer = get_valid_input('Hit or Stand? (1/2): ')
             hit_or_stand(new_answer)
     elif answer == '2':
