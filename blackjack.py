@@ -45,7 +45,8 @@ def dealer_play():
         sleep(1)
         dealer_play()
         return
-    elif value < 21 and value > 16:
+    elif 16 < value < 21:
+        print(f'Dealer: {dealer_hand}')
         sleep(1)
         print('Dealer stands ')
         if hand_value(hand) > hand_value(dealer_hand):
@@ -121,6 +122,7 @@ def hit_or_stand(answer, first_turn=True):
         elif value == 21:
             print(f'Dealer: {dealer_hand} ')
             print('Blackjack! ')
+            print('You win! ')
             sleep(1.5)
             try_again()
             return
