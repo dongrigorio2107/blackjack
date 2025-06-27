@@ -14,13 +14,17 @@ y = (screen_height - window_height) // 2
 
 root.geometry(f'{window_width}x{window_height}+{x}+{y}')
 
-label = tk.Label(root, text='Привет')
-label.pack()
-
-def on_click():
-    label.config(text='Еба, ты жмякнул кнопку!')
-
-button = tk.Button(root, text='Нажми', command=on_click)
-button.pack()
+for i in range(3):
+    for j in range(3):
+        frame = tk.Frame(
+            master=root,
+            relief=tk.RAISED,
+            borderwidth=1,
+            width=10,
+            height=10
+        )
+        frame.grid(row=i, column=j)
+        label = tk.Label(master=frame, text=f'Row {i+1}, Column {j+1}')
+        label.pack()
 
 root.mainloop()
