@@ -9,24 +9,23 @@ def remove_cards(lst):
         cards.remove(card)
 
 def hand_value(hand):
-    sum = 0
+    value = 0
     for card in hand:
         if card == 'A':
-            if sum + 11 <= 21:
-                sum += 11
+            if value + 11 <= 21:
+                value += 11
             else:
-                sum += 1
+                value += 1
         elif isinstance(card, str):
-            sum += 10
+            value += 10
         else: 
-            sum += card
-    return sum
+            value += card
+    return value
 
 def dealer_deal():
     random_dealer_hand = random.sample(cards, 2)
     dealer_hand.extend(random_dealer_hand)
     remove_cards(random_dealer_hand)
-    text = f'Dealer: [{dealer_hand[0]},|*|] '
 
 def dealer_take():
     random_card = random.choice(cards)
