@@ -1,7 +1,8 @@
+import blackjack
 import tkinter as tk
 
 root = tk.Tk()
-root.title('Окно Tkinter')
+root.title('MyBlackjack')
 
 window_width = 600
 window_height = 400
